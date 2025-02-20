@@ -15,20 +15,25 @@
 // Output: 1
 
 var maxArea = function(height) {
-    // if(height.length === 2) {
-    //     if(height[0] === height[1]) {
-    //         return height[0] * height[1];
-    //     }
-    // }
     let maxArea = 0;
+    let left = 0;
+    let right = height.length - 1;
 
+    while (left < right) {
+        let minHeight = Math.min(height[left], height[right]);
+        let width = right - left;
+        let area = minHeight * width;
+        maxArea = Math.max(maxArea, area);
 
-    for(let j=0; j<height.length; j++) {
-        if(height[j]*(j) > maxArea) {
-            maxArea = height[j]*(j);
+        // Move the pointer pointing to the shorter height
+        if (height[left] < height[right]) {
+            left++;
+        } else {
+            right--;
         }
     }
+
     return maxArea;
 };
 
-console.log(maxArea([1,8,6,2,5,4,8,3,7]));
+console.log(maxArea([1,8,6,2,5,4,8,3,7])); // Output: 49
